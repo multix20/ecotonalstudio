@@ -11,7 +11,8 @@ const Portfolio = () => {
       artist: "Pipe y los Ecos",
       genre: "Rock Alternativo",
       image: "/mesa.jpeg",
-      description: "Grabación y producción completa del disco debut."
+      description: "Grabación y producción completa del disco debut.",
+      audio: "/audios/tlabaja-chino.mp3"
     },
     {
       id: 2,
@@ -19,7 +20,8 @@ const Portfolio = () => {
       artist: "Mar Adentro",
       genre: "Folk / Indie",
       image: "/bateria.jpeg",
-      description: "Mezcla y masterización de 5 temas acústicos."
+      description: "Mezcla y masterización de 5 temas acústicos.",
+      audio: "/audios/horizontes.mp3"
     },
     {
       id: 3,
@@ -27,7 +29,8 @@ const Portfolio = () => {
       artist: "Estelar",
       genre: "Pop",
       image: "/mesados.jpg",
-      description: "Producción integral y arreglos de cuerdas."
+      description: "Producción integral y arreglos de cuerdas.",
+      audio: "/audios/memorias.mp3"
     },
     {
       id: 4,
@@ -35,16 +38,13 @@ const Portfolio = () => {
       artist: "Soundtrack Original",
       genre: "Instrumental / Ambiental",
       image: "/fondo.jpeg",
-      description: "Diseño sonoro y composición para cortometraje."
+      description: "Diseño sonoro y composición para cortometraje.",
+      audio: "/audios/caminos.mp3"
     }
   ];
 
   const toggleAudio = (id) => {
-    if (activeAudio === id) {
-      setActiveAudio(null);
-    } else {
-      setActiveAudio(id);
-    }
+    setActiveAudio(prev => (prev === id ? null : id));
   };
 
   return (
@@ -79,6 +79,7 @@ const Portfolio = () => {
                 {activeAudio === project.id ? <Pause size={20} /> : <Play size={20} />}
               </button>
             </div>
+
             <div className="p-6">
               <div className="flex items-center mb-2">
                 <span className="text-xs font-semibold px-2 py-1 rounded-full bg-purple-900 text-purple-300">
@@ -88,24 +89,20 @@ const Portfolio = () => {
               <h3 className="text-xl font-bold mb-1">{project.title}</h3>
               <p className="text-gray-400 text-sm mb-3">por {project.artist}</p>
               <p className="text-gray-300">{project.description}</p>
-              
+
               {activeAudio === project.id && (
-                <div className="mt-4 flex items-center gap-2">
-                  <Volume2 size={16} className="text-purple-400" />
-                  <div className="h-2 flex-1 bg-gray-700 rounded-full overflow-hidden">
-                    <div 
-                      className="h-full bg-gradient-to-r from-purple-500 to-pink-500" 
-                      style={{ width: '60%' }}
-                    ></div>
-                  </div>
-                  <span className="text-xs font-mono">2:14</span>
+                <div className="mt-4">
+                  <audio controls autoPlay className="w-full">
+                    <source src={project.audio} type="audio/mpeg" />
+                    Tu navegador no soporta el reproductor de audio.
+                  </audio>
                 </div>
               )}
             </div>
           </div>
         ))}
       </div>
-      
+
       <div className="mt-12 text-center">
         <a href="#contact" className="btn-secondary">
           Ver más proyectos

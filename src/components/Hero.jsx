@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Play, Pause, Music, Mic } from 'lucide-react';
 
 const Hero = () => {
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [showPlayer, setShowPlayer] = useState(false);
   const [currentSection, setCurrentSection] = useState(0);
 
   const studioSections = [
@@ -14,20 +14,15 @@ const Hero = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      if (!isPlaying) {
-        setCurrentSection((prev) => (prev + 1) % studioSections.length);
-      }
+      setCurrentSection((prev) => (prev + 1) % studioSections.length);
     }, 3000);
     return () => clearInterval(interval);
-  }, [isPlaying, studioSections.length]);
-
-  const togglePlay = () => {
-    setIsPlaying(!isPlaying);
-  };
+  }, [studioSections.length]);
 
   return (
     <section id="hero" className="section-container">
       <div className="flex flex-col md:flex-row items-center justify-between">
+        {/* Columna izquierda */}
         <div className="md:w-1/2 mb-10 md:mb-0">
           <h1 className="text-4xl md:text-6xl font-extrabold mb-6">
             Tu sonido merece 
@@ -35,6 +30,7 @@ const Hero = () => {
               calidad profesional
             </span>
           </h1>
+
           <div className="h-16 mb-8">
             <p className="text-xl md:text-2xl font-light">
               Especialistas en{" "}
@@ -43,14 +39,15 @@ const Hero = () => {
               </span>
             </p>
           </div>
+
           <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
             <a href="#contact" className="btn-primary">
               <span>Reservar sesión</span>
               <Mic className="ml-2" size={18} />
             </a>
-            <button className="btn-secondary" onClick={togglePlay}>
+            <button className="btn-secondary" onClick={() => setShowPlayer(!showPlayer)}>
               <span>Escuchar demos</span>
-              {isPlaying ? (
+              {showPlayer ? (
                 <Pause className="ml-2" size={18} />
               ) : (
                 <Play className="ml-2" size={18} />
@@ -58,21 +55,18 @@ const Hero = () => {
             </button>
           </div>
 
-          {/* YouTube player */}
-          {isPlaying && (
-            <div className="mt-6 aspect-video w-full max-w-xl">
-              <iframe
-                className="w-full h-64 md:h-72 rounded-lg"
-                src="https://www.youtube.com/embed/dE9bFc06Mwk?autoplay=1&rel=0"
-                title="Demo musical"
-                frameBorder="0"
-                allow="autoplay; encrypted-media"
-                allowFullScreen
-              ></iframe>
+          {/* Reproductor de audio */}
+          {showPlayer && (
+            <div className="mt-6">
+              <audio controls autoPlay className="w-full max-w-xl">
+                <source src="/audios/ER.mp3" type="audio/mpeg" />
+                Tu navegador no soporta el reproductor de audio.
+              </audio>
             </div>
           )}
         </div>
 
+        {/* Columna derecha con efecto de ondas */}
         <div className="md:w-1/2 relative">
           <div className="relative w-full h-64 md:h-96 rounded-lg overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-tr from-purple-800 to-pink-600 opacity-80 rounded-lg"></div>
@@ -85,7 +79,7 @@ const Hero = () => {
                       className="w-2 bg-white opacity-70 rounded-full"
                       style={{
                         height: `${Math.sin(i / 2) * 50 + 30}%`,
-                        animation: isPlaying ? `pulse 0.5s infinite ${i * 0.05}s` : 'none'
+                        animation: showPlayer ? `pulse 1s infinite ${i * 0.05}s` : 'none'
                       }}
                     ></div>
                   ))}
@@ -97,6 +91,7 @@ const Hero = () => {
             </div>
           </div>
 
+          {/* Stats flotante */}
           <div className="absolute -bottom-4 -right-4 bg-black bg-opacity-80 p-4 rounded-lg border border-purple-500">
             <div className="flex items-center space-x-3">
               <div className="w-3 h-3 rounded-full bg-red-500 animate-pulse"></div>
@@ -106,6 +101,7 @@ const Hero = () => {
         </div>
       </div>
 
+      {/* Logos */}
       <div className="mt-20">
         <p className="text-center text-gray-400 mb-8">Confían en nosotros</p>
         <div className="flex flex-wrap justify-center items-center gap-8 opacity-70">
