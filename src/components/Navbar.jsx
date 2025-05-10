@@ -11,7 +11,7 @@ const Navbar = () => {
       <div className="max-w-6xl mx-auto px-6 flex justify-between items-center h-16">
         <div className="flex items-center space-x-2">
           <Volume2 size={24} className="text-purple-400" />
-          <span className="text-xl md:text-2xl font-bold gradient-text">ECOTONONAL STUDIO</span>
+          <span className="text-xl md:text-2xl font-bold gradient-text">ECOTONAL STUDIO</span>
         </div>
         <div className="hidden md:flex space-x-8">
           <a href="#services" className="hover:text-purple-400 transition-colors">Servicios</a>

@@ -22,6 +22,7 @@ const WhatsappButton = ({ number = "56994124159", message = "¡Escríbenos!" }) 
         aria-label="Contáctanos por WhatsApp"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
+
       >
         <FontAwesomeIcon
           icon={faWhatsapp}
