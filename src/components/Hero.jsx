@@ -4,7 +4,7 @@ import { Play, Pause, Music, Mic } from 'lucide-react';
 const Hero = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentSection, setCurrentSection] = useState(0);
-  
+
   const studioSections = [
     "Grabación profesional",
     "Mezcla y masterización",
@@ -57,19 +57,32 @@ const Hero = () => {
               )}
             </button>
           </div>
+
+          {/* YouTube player */}
+          {isPlaying && (
+            <div className="mt-6 aspect-video w-full max-w-xl">
+              <iframe
+                className="w-full h-64 md:h-72 rounded-lg"
+                src="https://www.youtube.com/embed/dE9bFc06Mwk?autoplay=1&rel=0"
+                title="Demo musical"
+                frameBorder="0"
+                allow="autoplay; encrypted-media"
+                allowFullScreen
+              ></iframe>
+            </div>
+          )}
         </div>
-        
+
         <div className="md:w-1/2 relative">
           <div className="relative w-full h-64 md:h-96 rounded-lg overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-tr from-purple-800 to-pink-600 opacity-80 rounded-lg"></div>
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="w-full max-w-xs">
-                {/* Audio waveform visualization */}
                 <div className="flex items-center justify-center h-24 space-x-1">
                   {[...Array(18)].map((_, i) => (
-                    <div 
-                      key={i} 
-                      className="w-2 bg-white opacity-70 rounded-full" 
+                    <div
+                      key={i}
+                      className="w-2 bg-white opacity-70 rounded-full"
                       style={{
                         height: `${Math.sin(i / 2) * 50 + 30}%`,
                         animation: isPlaying ? `pulse 0.5s infinite ${i * 0.05}s` : 'none'
@@ -83,8 +96,7 @@ const Hero = () => {
               </div>
             </div>
           </div>
-          
-          {/* Floating stats */}
+
           <div className="absolute -bottom-4 -right-4 bg-black bg-opacity-80 p-4 rounded-lg border border-purple-500">
             <div className="flex items-center space-x-3">
               <div className="w-3 h-3 rounded-full bg-red-500 animate-pulse"></div>
@@ -93,8 +105,7 @@ const Hero = () => {
           </div>
         </div>
       </div>
-      
-      {/* Clients/Logos */}
+
       <div className="mt-20">
         <p className="text-center text-gray-400 mb-8">Confían en nosotros</p>
         <div className="flex flex-wrap justify-center items-center gap-8 opacity-70">
